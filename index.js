@@ -15,9 +15,19 @@ const app = express()
 app.listen(3000)
 
 app.get('/', (req, res) => {
-    res.sendFile('./static/index.html', {
-        root: __dirname
-    })
+    res.send('hola tarolas')
+})
+
+app.get('/about', (req, res) => {
+    res.send('ABOUT')
+})
+
+app.get('/weather', (req, res) => {
+    res.send('the current weather is nice')
+})
+
+app.use((req, res) => {
+    res.status(404).send('No se encontró tu página')
 })
 
 console.log(`server on por ${3000}`)
