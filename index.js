@@ -3,18 +3,13 @@
 const express = require ('express')
 const app = express()
 
-app.get('/miarchivo', (req, res) => {
-    res.sendFile('./heart.png', {
-        root: __dirname
-    })
-})
+app.use(express.text())
+app.use(express.json())
+app.use(express.urlencoded({extended: false}))
 
-app.get('/user', (req, res) => {
-    res.json({
-        "name": "John",
-        "last name": "wright"
-    
-    })
+app.post('/usernuevo', (req, res) =>{
+    console.log(req.body)
+    res.send('nuevo usuario creado')
 })
 
 
