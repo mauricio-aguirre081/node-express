@@ -3,28 +3,23 @@
 const express = require ('express')
 const app = express()
 
-app.get('/hello/:username', (req, res) => {
-    res.send(`Hello ${req.params.username.toUpperCase()}`)
-})
-
-app.get('/add/:a/:b', (req, res) => {
-    const total = parseInt(req.params.a) + parseInt(req.params.b);
-    res.send(`The Result is: ${total}`)
-})
-
-app.get('/users/:username/photo', (req, res) => {
-    if(req.params.username === "Julio") {
-        return res.sendFile('./heart.png', {
-            root: __dirname
-        })
+app.use((req, res, next) => {
+    if(req.query.login === 'mingo@fantasma.com'){
+        next();
+    } else {
+        res.send('No autorizado')
     }
-    res.send('El usuario no tiene acceso')
 })
 
-app.get('/name/:nombre/age/:edad', (req, res) => {
-    res.send(`El usuario ${req.params.nombre} tiene ${req.params.edad}`)
+
+app.use((req, res, next) => {
+    console.log(`Route: ${req.url} Metodo: ${req.method}`)
+    next()
 })
 
+app.get('/dashboard', (req, res) => {
+    res.send('Dashboard page')
+})
 
 
 
